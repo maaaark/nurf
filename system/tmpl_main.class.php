@@ -110,6 +110,7 @@ class Template {
     
     public function loadBasics(){
         $this->assign("ROOT", ROOT);
+        $this->assign("DOMAIN", DOMAIN);
     }
 }
 ?>
