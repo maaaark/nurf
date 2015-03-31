@@ -1,0 +1,80 @@
+.team_holder {
+	width: 50%;
+	margin-top: 40px;
+}
+
+.team_holder.left {
+	float: left;
+}
+
+.team_holder.right {
+	float: right;
+}
+
+.team_holder.left .holder {
+	padding-right: 20px;
+}
+
+.team_holder.right .holder {
+	padding-left: 20px;
+}
+
+.team_holder .team_name {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.team_holder.left .team_name {
+	color: blue;
+	text-align: right;
+}
+
+.team_holder.right .team_name {
+	color: red;
+	text-align: left;
+}
+
+/* Player */
+.team_holder .player {
+	height: 80px;
+	margin-top: 15px;
+}
+
+.team_holder .player .champion_icon {
+	height: 80px;
+	width: 80px;
+	background-size: 95px;
+	background-position: center center;
+}
+
+.team_holder .player.blue .champion_icon {
+	float: right;
+}
+
+.team_holder .player.red .champion_icon {
+	float: left;
+}
+
+.team_holder .player .items {
+	float: left;
+}
+
+.team_holder .player.blue .items {
+	float: right;
+}
+
+.team_holder .player .items .item_icon {
+	height: 40px;
+	width: 40px;
+	background-size: 45px !important;
+	background-position: center center;
+	float: left;
+}
+
+.team_holder .player .items .item_icon {
+	background: rgba(0,0,0,0.7);
+}
+
+.team_holder .player .items .items_clear {
+	clear: left;
+}
