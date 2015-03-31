@@ -40,4 +40,19 @@
 			<div class="item_icon no_icon"></div>
 		{/if}
 	</div>
+
+	<div class="infos">
+		<textarea id="player{PLAYER_INTERNAL_COUNT}_runes" style="display:none;">{RUNES_JSON}</textarea>
+		<textarea id="player{PLAYER_INTERNAL_COUNT}_masteries" style="display:none;">{MASTERIES_JSON}</textarea>
+
+		<div class="spells">
+			<div class="spell_icon" style="background-image:url(http://flashignite.com/img/spells/{SPELL1}.png)"></div>
+			<div class="spell_icon" style="background-image:url(http://flashignite.com/img/spells/{SPELL2}.png)"></div>
+		</div>
+
+		<div class="buttons">
+			<div style="margin-bottom: 9px;"><button class="small runes_btn" data-internalplayer="{PLAYER_INTERNAL_COUNT}">Runes</button></div>
+			<div><button class="small masteries_btn" data-internalplayer="{PLAYER_INTERNAL_COUNT}">Masteries</button></div>
+		</div>
+	</div>
 </div>

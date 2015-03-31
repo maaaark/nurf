@@ -5,12 +5,15 @@ if(isset($url_arr[1]) && $url_arr[1] == "ajax"){
 		$content   = file_get_contents("https://euw.api.pvp.net/api/lol/euw/v2.2/match/2038753002?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
 		$json      = json_decode($content, true);
 
-		$red_team  = "";
-		$blue_team = "";
+		$red_team  	  = "";
+		$blue_team 	  = "";
+		$player_count = 0;
 		if(isset($json["participants"]) && is_array($json["participants"])){
 			foreach($json["participants"] as $player){
-				//echo "<pre>", print_r($player), "</pre>";
+				//echo "<pre style='background:#fff;'>", print_r($player), "</pre>";
 				if(isset($player["championId"]) && isset($player["stats"]) && isset($player["teamId"])){
+					$player_count++;
+
 					$team = "blue";
 					if($player["teamId"] == 200){
 						$team = "red";
@@ -35,6 +38,20 @@ if(isset($url_arr[1]) && $url_arr[1] == "ajax"){
 						}
 					}
 
+					if(isset($player["spell1Id"]) && isset($player["spell1Id"])){
+						$template->assign("SPELL1", $player["spell1Id"]);
+						$template->assign("SPELL2", $player["spell2Id"]);
+					}
+
+					if(isset($player["runes"])){
+						$template->assign("RUNES_JSON", json_encode($player["runes"]));
+					}
+
+					if(isset($player["masteries"])){
+						$template->assign("MASTERIES_JSON", json_encode($player["masteries"]));
+					}
+
+					$template->assign("PLAYER_INTERNAL_COUNT", $player_count);
 					$template->assign("TEAM_TYPE", $team);
 					if($team == "blue"){
 						$blue_team .= $template->display();

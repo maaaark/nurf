@@ -112,3 +112,10 @@ button.big {
 	padding-left: 20px;
 	font-size: 16px;
 }
+
+button.small {
+	padding: 8px;
+	padding-right: 6px;
+	padding-left: 6px;
+	font-size: 13px;
+}

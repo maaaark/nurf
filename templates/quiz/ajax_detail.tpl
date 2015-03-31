@@ -9,6 +9,8 @@
 </div>
 
 <div class="base transparent">
+	<div id="mastery_page_holder"></div>
+	<div id="rune_page_holder"></div>
 	<div id="team_viewer">
 		<div class="team_holder left">
 			<div class="holder">
@@ -26,3 +28,13 @@
 	</div>
 	<div style="clear:both;"></div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$(".masteries_btn").click(function(){
+		id 	 = $(this).attr("data-internalplayer");
+		json = JSON.parse($("#player"+id+"_masteries").val());
+		$("#mastery_page_holder").mastery(json, "http://ddragon.leagueoflegends.com/cdn/5.6.1/img/mastery/{MASTERY_ID}.png");
+	});
+});
+</script>

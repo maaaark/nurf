@@ -1,0 +1,69 @@
+.mastery_tree_holder .tree_type_holder {
+	width: 235px;
+	overflow: hidden;
+}
+
+.mastery_tree_holder .tree_type_holder.offense {
+	background-image: url(../img/stats/mastery_offense_bg.jpg);
+}
+
+.mastery_tree_holder .tree_type_holder.defense {
+	background-image: url(../img/stats/mastery_defense_bg.jpg);
+}
+
+.mastery_tree_holder .tree_type_holder.utility {
+	background-image: url(../img/stats/mastery_utility_bg.jpg);
+}
+
+.mastery_tree_holder .tree_type_holder .tree_bg_color {
+	background-color: rgba(0,0,0,0.5);
+	padding: 15px;
+}
+
+.mastery_tree_holder .tree_type_holder .tree_bg_color .counter {
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.mastery_tree_holder .tree_type_holder .mastery {
+	height: 40px;
+	width: 40px;
+	background-size: 40px;
+	opacity: 0.6;
+	display: inline-block;
+	margin: 5px;
+	position: relative;
+	padding: 0px;
+	overflow: hidden;
+	border: 1px solid rgba(255,255,255,0.5);
+}
+
+.mastery_tree_holder .tree_type_holder .mastery.checked {
+	opacity: 1;
+}
+
+.mastery_tree_holder .tree_type_holder .mastery .ranks_holder {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	height: auto;
+	padding: 2px;
+	margin: 0px;
+	background: rgba(0,0,0,0.8);
+	width: 100%;
+}
+
+.mastery_tree_holder .tree_type_holder .mastery .ranks_holder .rank_el {
+	width: 6px;
+	height: 6px;
+	background: #f25825;
+	float: left;
+	margin: 0px;
+	margin-right: 3px;
+}
+
+.mastery_tree_holder .tree_type_holder .mastery .ranks_holder .rank_el:last-child {
+	margin-right: 0px;
+}

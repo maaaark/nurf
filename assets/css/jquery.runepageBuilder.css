@@ -1,0 +1,60 @@
+.runepage {
+	max-width: 656px;
+	max-height: 436px;
+}
+
+.runepage .runepage_bg {
+	background: url(../img/runepage_bg.png);
+	width: 656px;
+	height: 436px;
+	position: relative;
+	box-shadow: 0 0 6px 1px rgba(0,0,0,0.5);
+}
+
+.runepage .runepage_bg .rune {
+	width: 55px;
+	height: 55px;
+	background-size: 55px;
+	position: absolute;
+}
+
+/* Rote Runen */
+.runepage .runepage_bg .runeslot_1 { bottom: 5px; left: 20px; }
+.runepage .runepage_bg .runeslot_2 { bottom: 5px; left: 85px; }
+.runepage .runepage_bg .runeslot_3 { bottom: 5px; left: 160px; }
+.runepage .runepage_bg .runeslot_4 { bottom: 65px; left: 10px; }
+.runepage .runepage_bg .runeslot_5 { bottom: 68px; left: 75px; }
+.runepage .runepage_bg .runeslot_6 { bottom: 63px; left: 135px; }
+.runepage .runepage_bg .runeslot_7 { bottom: 123px; left: 30px; }
+.runepage .runepage_bg .runeslot_8 { bottom: 120px; left: 100px; }
+.runepage .runepage_bg .runeslot_9 { bottom: 165px; left: 70px; }
+
+
+/* Gelbe Runen */
+.runepage .runepage_bg .runeslot_10 { bottom: 205px; left: 30px; }
+.runepage .runepage_bg .runeslot_11 { bottom: 205px; left: 110px; }
+.runepage .runepage_bg .runeslot_12 { bottom: 250px; left: 65px; }
+.runepage .runepage_bg .runeslot_13 { bottom: 265px; left: 128px; }
+.runepage .runepage_bg .runeslot_14 { top: 70px; left: 170px; }
+.runepage .runepage_bg .runeslot_15 { top: 50px; left: 235px; }
+.runepage .runepage_bg .runeslot_16 { top: 30px; left: 300px; }
+.runepage .runepage_bg .runeslot_17 { top: 5px; left: 360px; }
+.runepage .runepage_bg .runeslot_18 { top: 65px; left: 380px; }
+
+
+/* Blaue Runen */
+.runepage .runepage_bg .runeslot_19 { top: 17px; right: 180px; }
+.runepage .runepage_bg .runeslot_20 { top: 70px; right: 150px; }
+.runepage .runepage_bg .runeslot_21 { top: 12px; right: 120px; }
+.runepage .runepage_bg .runeslot_22 { top: 105px; right: 100px; }
+.runepage .runepage_bg .runeslot_23 { top: 53px; right: 80px; }
+.runepage .runepage_bg .runeslot_24 { top: 12px; right: 35px; }
+.runepage .runepage_bg .runeslot_25 { top: 70px; right: 10px; }
+.runepage .runepage_bg .runeslot_26 { top: 120px; right: 40px; }
+.runepage .runepage_bg .runeslot_27 { top: 170px; right: 10px; }
+
+
+/* Die 3 großen */
+.runepage .runepage_bg .runeslot_28 { top: 40px; left: 40px; background-size: 80px; width: 80px; height: 80px; }
+.runepage .runepage_bg .runeslot_29 { bottom: 130px; left: 195px; background-size: 80px; width: 80px; height: 80px; }
+.runepage .runepage_bg .runeslot_30 { bottom: 180px; left: 410px; background-size: 80px; width: 80px; height: 80px; }

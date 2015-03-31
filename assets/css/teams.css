@@ -38,6 +38,7 @@
 .team_holder .player {
 	height: 80px;
 	margin-top: 15px;
+	background: rgba(255,255,255,0.5);
 }
 
 .team_holder .player .champion_icon {
@@ -57,6 +58,7 @@
 
 .team_holder .player .items {
 	float: left;
+	margin: 5px;
 }
 
 .team_holder .player.blue .items {
@@ -64,17 +66,55 @@
 }
 
 .team_holder .player .items .item_icon {
-	height: 40px;
-	width: 40px;
-	background-size: 45px !important;
-	background-position: center center;
+	height: 36px;
+	width: 36px;
+	background-size: 38px !important;
+	background-position: center center !important;
 	float: left;
 }
 
 .team_holder .player .items .item_icon {
-	background: rgba(0,0,0,0.7);
+	background: rgba(0,0,0,0);
 }
 
 .team_holder .player .items .items_clear {
 	clear: left;
+}
+
+.team_holder .player .infos {
+	float: left;
+	text-align: left;
+	padding: 5px;
+}
+
+.team_holder .player.blue .infos {
+	float: right;
+	text-align: right;
+}
+
+.team_holder .player .infos .buttons {
+	float: left;
+	margin-left: 12px;
+}
+
+.team_holder .player.blue .infos .buttons {
+	float: right;
+	margin-left: 0px;
+	margin-right: 12px;
+}
+
+.team_holder .player .infos .spells {
+	float: left;
+}
+
+.team_holder .player.blue .infos .spells {
+	float: right;
+}
+
+.team_holder .player .infos .spells .spell_icon {
+	width: 25px;
+	height: 25px;
+	background-size: 25px;
+	background-position: center center;
+	margin-top: 6px;
 }
