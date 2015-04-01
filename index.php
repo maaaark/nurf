@@ -38,4 +38,30 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 	$array[$minute_id] = $temp;
 }
 
-echo "<pre>", print_r($array), "</pre>";
+echo "<script>var matchData = JSON.parse('".json_encode($array)."');</script>";
+?>
+
+<div id="map"></div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="matchViewer.js"></script>
+
+<div>
+	Aktuelle Minute: <span id="current_minute" style="font-weight: bold;">0</span>.
+	<a href="javascript:void(0);" onclick="changeMinute('-');">Zur&uuml;ck</a>
+	<a href="javascript:void(0);" onclick="changeMinute('+');">Weiter</a>
+</div>
+<script>
+	var current_min = 0;
+	showMinute(matchData, current_min);
+
+	function changeMinute(val){
+		if(val == "+"){
+			val = current_min + 1;
+		} else {
+			val = current_min - 1;
+		}
+		current_min = val;
+		showMinute(matchData, val);
+		document.getElementById("current_minute").innerHTML = val;
+	}
+</script>
