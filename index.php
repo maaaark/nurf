@@ -1,60 +1,41 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-/******************************************
- ******************************************
- **        Copyright (C) 2015            **
- **               by                     **
- **       heyitsmark & torrnext          **
- ******************************************
- ******************************************/
 
-require_once 'system/config.php';
-require_once 'system/init.php';
-require_once 'system/tmpl_main.class.php';
+$content = file_get_contents("https://na.api.pvp.net/api/lol/na/v2.2/match/1778704162?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
+$json    = json_decode($content, true);
 
-if(isset($_GET["page"])&&trim($_GET["page"])!=""){
-   $url_parser = new URL_PARSER($_GET["page"]);
-   $page       = $url_parser->get_arr_element(0);
-   $url_arr    = $url_parser->get_arr();
-} else {
-   $page       = false;
+$array = array();
+foreach($json["timeline"]["frames"] as $timeline_element){
+	$minute_id = round($timeline_element["timestamp"] / 1000 / 60);
+	//echo "<pre>", print_r($timeline_element), "</pre>";
+	$temp = array();
+	$temp["player"] = array();
+	foreach($timeline_element["participantFrames"] as $player){
+		$player_arr = array();
+		$player_arr["playerId"] 	 	     = $player["participantId"];
+		if(isset($player["position"])){
+			$player_arr["pos_x"]    	 	 = $player["position"]["x"];
+			$player_arr["pos_y"]    	 	 = $player["position"]["y"];
+		} else {
+			$player_arr["pos_x"]    	 	 = 0;
+			$player_arr["pos_y"]    	 	 = 0;
+		}
+		$player_arr["current_gold"]  	     = $player["currentGold"];
+		$player_arr["total_gold"]   	     = $player["totalGold"];
+		$player_arr["level"]         	     = $player["level"];
+		$player_arr["xp"]            	     = $player["xp"];
+		$player_arr["minions_killed"] 	     = $player["minionsKilled"];
+		$player_arr["minions_killed_jungle"] = $player["jungleMinionsKilled"];
+		$player_arr["lasthits"]              = $player["minionsKilled"] + $player["jungleMinionsKilled"];
+		$player_arr["dominion_score"]        = $player["dominionScore"];
+		$player_arr["team_score"]            = $player["teamScore"];
+
+		$temp["player"][$player["participantId"]] = $player_arr;
+	}
+
+	$array[$minute_id] = $temp;
 }
 
-if($page == null || $page == false || $page == "index"){
-   // Startseite anzeigen
-   $template = new Template();
-   $template->load("index");
-   $template->assign("SITE_TITLE", "Startseite");
-   $tmpl = $template->display(true);
-   $tmpl = $template->operators();
-   echo $tmpl;
-} else {
-   // Handelt es sich um einen Link eines Moduls
-   $module = new CHECK_MODULE($page);
-   $check_module = $module->check();
-   
-   // Manuel angelegte Seite überprüfen
-   $check_page   = false;
-   if($check_module == false){
-      $check_page = $url_parser->check_page();
-   }
-   
-   if($check_module){
-      // Modul init.php laden und includen
-      require_once $module->get_init();
-      
-   } elseif($check_page){
-      $template = new Template();
-      $template->load($check_page);
-      $tmpl = $template->display(true);
-      $tmpl = $template->operators();
-      echo $tmpl;
-   } else {
-      $template = new Template();
-      $template->load("404_error");
-      $template->assign("SITE_TITLE", "Seite nicht gefunden");
-      $tmpl = $template->display(true);
-      $tmpl = $template->operators();
-      echo $tmpl;
-   }
-}
+echo "<pre>", print_r($array), "</pre>";
