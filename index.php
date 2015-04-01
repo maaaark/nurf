@@ -39,6 +39,7 @@ $builings["tower_base_blue_2"] = true;
 $array 				  = array();
 $last_buildings_setup = null;
 foreach($json["timeline"]["frames"] as $timeline_element){
+	//echo "<pre>", print_r($timeline_element), "</pre>";
 	$temp = array();
 	$minute_id = round($timeline_element["timestamp"] / 1000 / 60);
 
@@ -73,6 +74,41 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 	} else {
 		$buildings_temp = $last_buildings_setup;
 	}
+
+	// Events durchlaufen
+	if(isset($timeline_element["events"]) && is_array($timeline_element["events"])){
+		foreach($timeline_element["events"] as $event){
+			if(isset($event["eventType"])){
+				// Event Typ analysieren
+				if($event["eventType"] == "BUILDING_KILL"){	// Wenn ein Gebäude zerstört wurde
+					if($event["buildingType"] == "TOWER_BUILDING"){	// Wenn es sich bei dem Gebäude um ein Turm handelt
+						$lane  = $event["laneType"];
+						$tower = $event["towerType"];
+
+						$team  = "blue";
+						if($event["teamId"] == 200){
+							$team = "red";
+						}
+
+						if($lane == "MID_LANE" && $tower == "OUTER_TURRET"){ $buildings_temp["tower_mid_".$team."_1"] = false; }
+						if($lane == "MID_LANE" && $tower == "INNER_TURRET"){ $buildings_temp["tower_mid_".$team."_2"] = false; }
+						if($lane == "MID_LANE" && $tower == "BASE_TURRET"){  $buildings_temp["tower_mid_".$team."_3"] = false; }
+
+						if($lane == "TOP_LANE" && $tower == "OUTER_TURRET"){ $buildings_temp["tower_top_".$team."_1"] = false; }
+						if($lane == "TOP_LANE" && $tower == "INNER_TURRET"){ $buildings_temp["tower_top_".$team."_2"] = false; }
+						if($lane == "TOP_LANE" && $tower == "BASE_TURRET"){  $buildings_temp["tower_top_".$team."_3"] = false; }
+
+						if($lane == "BOT_LANE" && $tower == "OUTER_TURRET"){ $buildings_temp["tower_bot_".$team."_1"] = false; }
+						if($lane == "BOT_LANE" && $tower == "INNER_TURRET"){ $buildings_temp["tower_bot_".$team."_2"] = false; }
+						if($lane == "BOT_LANE" && $tower == "BASE_TURRET"){  $buildings_temp["tower_bot_".$team."_3"] = false; }
+						echo "Tower Kill - ";
+					}
+				}
+			}
+		}
+	}
+
+	// Temp Array aktualisieren
 	$temp["buildings"]  = $buildings_temp;
 
 	// Daten speichern

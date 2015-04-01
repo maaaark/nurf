@@ -88,13 +88,17 @@ function showMinute(data, minute){
         		if(building_type == "tower_bot_blue_3"){ x = 152; y = 460; }
 
         		if(x != 0 && y != 0){
-					svg.select("g").append("svg:image")
-				        .attr('x', x)
-				        .attr('y', y)
-				        .attr('width', 20)
-				        .attr('height', 20)
-				        .attr('class', 'champion_dot')
-				        .attr('xlink:href', 'http://matchhistory.euw.leagueoflegends.com/assets/1.0.5/images/normal/event_icons/turret_'+team_icon_id+'.png');
+        			if(current_building){	// Überprüfen ob das Gebäude noch nicht zerstört wurde
+						svg.select("g").append("svg:image")
+					        .attr('x', x)
+					        .attr('y', y)
+					        .attr('width', 20)
+					        .attr('height', 20)
+					        .attr('class', 'tower_dot')
+					        .attr('xlink:href', 'http://matchhistory.euw.leagueoflegends.com/assets/1.0.5/images/normal/event_icons/turret_'+team_icon_id+'.png');
+			        } else {
+			        	console.log("Gebäude wurde zerstört");
+			        }
 		        }
 	        }
         }
