@@ -1,10 +1,11 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once 'system/config.php';
+require_once 'system/init.php';
 
 
 $content = file_get_contents("https://na.api.pvp.net/api/lol/na/v2.2/match/1778704162?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
 $json    = json_decode($content, true);
+//echo "<pre>", print_r($json), "</pre>";
 
 
 // Buildings Start Situation
@@ -33,6 +34,17 @@ $builings["tower_base_red_1"] = true;
 $builings["tower_base_red_2"] = true;
 $builings["tower_base_blue_1"] = true;
 $builings["tower_base_blue_2"] = true;
+
+
+// Participants laden und diverse Infos laden (z.B. Champions)
+$participants_data = array();
+foreach($json["participants"] as $player){
+	$champ = $GLOBALS["db"]->fetch_array($GLOBALS["db"]->query("SELECT * FROM champions WHERE champion_id = '".$GLOBALS["db"]->real_escape_string($player["championId"])."'"));
+	$temp  = array();
+	$temp["champion_name"] = str_replace("'", "&lsquo;", $champ["name"]);
+	$temp["champion_key"]  = $champ["key"];
+	$participants_data[$player["participantId"]] = $temp;
+}
 
 
 // Minutenweise durchlaufen
@@ -64,6 +76,9 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 		$player_arr["lasthits"]              = $player["minionsKilled"] + $player["jungleMinionsKilled"];
 		$player_arr["dominion_score"]        = $player["dominionScore"];
 		$player_arr["team_score"]            = $player["teamScore"];
+
+		$player_arr["champion_name"]         = $participants_data[$player["participantId"]]["champion_name"];
+		$player_arr["champion_key"]          = $participants_data[$player["participantId"]]["champion_key"];
 
 		$temp["player"][$player["participantId"]] = $player_arr;
 	}

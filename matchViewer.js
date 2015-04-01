@@ -17,7 +17,7 @@ function showMinute(data, minute){
 
 		// Spieler durchlaufen und Koordinaten + Champs speichern
 		for(i in  player_arr){
-			cords[cords.length] = [player_arr[i]["pos_x"], player_arr[i]["pos_y"], "ahri"];
+			cords[cords.length] = [player_arr[i]["pos_x"], player_arr[i]["pos_y"], player_arr[i]["champion_name"], player_arr[i]["champion_key"]];
 		}
 
 		color = d3.scale.linear()
@@ -55,7 +55,7 @@ function showMinute(data, minute){
 		        .attr('width', 20)
 		        .attr('height', 20)
 		        .attr('class', 'champion_dot')
-		        .attr('xlink:href', 'http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Ahri.png');
+		        .attr('xlink:href', function(d) { return 'http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/'+d[3]+'.png' });
 
         // Buildings setzen
         for(building_type in buildings_arr){
