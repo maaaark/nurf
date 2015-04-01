@@ -14,7 +14,7 @@ function showMinute(data, minute){
 
 		for(i in  player_arr){
 			//console.log(player_arr[i]);
-			cords[cords.length] = [player_arr[i]["pos_x"], player_arr[i]["pos_y"]];
+			cords[cords.length] = [player_arr[i]["pos_x"], player_arr[i]["pos_y"], "ahri"];
 		}
 
 		color = d3.scale.linear()
@@ -42,12 +42,25 @@ function showMinute(data, minute){
 		    .attr('width', width)
 		    .attr('height', height);
 
-		svg.append('svg:g').selectAll("circle")
+		/*defs = svg.append('defs');
+		pattern = defs.append('pattern')
+					.attr('id', 'image')
+					.attr('x', '0')
+					.attr('y', '0')
+					.attr('patternUnits', 'userSpaceOnUse')
+					.attr('height', '40')
+					.attr('width', '40');
+		pattern.html('<image x="0" y="0" xlink:href="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Ahri.png" />');*/
+
+		svg.append('svg:g').selectAll("image")
 		    .data(cords)
-		    .enter().append("svg:circle")
-		        .attr('cx', function(d) { return xScale(d[0]) })
-		        .attr('cy', function(d) { return yScale(d[1]) })
-		        .attr('r', 5)
-		        .attr('class', 'kills');
+		    .enter().append("svg:image")
+		        .attr('x', function(d) { return xScale(d[0]) - 10 })
+		        .attr('y', function(d) { return yScale(d[1]) - 10 })
+		        .attr('data-champ', function(d) { return d[2] })
+		        .attr('width', 20)
+		        .attr('height', 20)
+		        .attr('class', 'champion_dot')
+		        .attr('xlink:href', 'http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Ahri.png');
 			}
 }
