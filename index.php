@@ -135,6 +135,7 @@ echo "<script>var matchData = JSON.parse('".json_encode($array)."');</script>";
 ?>
 
 <div id="map"></div>
+<script src="assets/jquery.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="matchViewer.js"></script>
 

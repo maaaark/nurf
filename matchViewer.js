@@ -48,7 +48,8 @@ function showMinute(data, minute){
 		// Champion Icons setzen
 		svg.append('svg:g').selectAll("image")
 		    .data(cords)
-		    .enter().append("svg:image")
+		    .enter()
+		    .append("svg:image")
 		        .attr('x', function(d) { return xScale(d[0]) - 10 })
 		        .attr('y', function(d) { return yScale(d[1]) - 10 })
 		        .attr('data-champ', function(d) { return d[2] })
