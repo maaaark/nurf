@@ -1,49 +1,18 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once 'system/init.php';
 
-require_once 'curl.func.php';
-require_once '../system/config_db.php';
-require_once '../system/mysql.class.php';
-$GLOBALS["db"] = new MySQL(MYSQL_TYPE, MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-
+require_once 'urf_matchID.class.php';
 $speed   = 10; // 0 am schnellsten
-$api_key = "cc157cc5-58b2-417a-83ac-7d4579bd2d1d";
 $region  = "euw";
 
-if(isset($_GET["resgion"])){
+if(isset($_GET["region"])){
 	$region = $_GET["region"];
 }
 
 $date = date("H:i d.m.Y", time() - (10 * 60));
-$content = curl_file("https://".$region.".api.pvp.net/api/lol/".$region."/v4.1/game/ids?beginDate=".strtotime($date)."&api_key=".$api_key);
-$json    = json_decode($content["result"], true);
-
-if(isset($json["status"]) && isset($json["status"]["message"])){
-	echo "<div style='padding:10px;border:1px solid black;margin:10px;'>";
-	if(trim($json["status"]["message"]) == "beginDate is invalid"){
-		echo "Riot stellt in dieser Minute gerade keine MatchIDs zur Verf&uuml;gung.";
-	} else {
-		echo $json["status"]["message"]."</div>";
-	}
-	echo "</div>";
-} else {
-	$count       = 0;
-	$count_added = 0;
-	foreach($json as $matchID){
-		$count++;
-		$check = $GLOBALS["db"]->fetch_array($GLOBALS["db"]->query("SELECT * FROM urf_matchIDs WHERE matchID = '".$GLOBALS["db"]->real_escape_string($matchID)."'
-																								 AND region = '".$GLOBALS["db"]->real_escape_string($region)."'"));
-
-		if(!isset($check["id"]) || $check["id"] < 1){
-			$insert = $GLOBALS["db"]->query("INSERT INTO urf_matchIDs SET matchID = '".$GLOBALS["db"]->real_escape_string($matchID)."',
-																		  region  = '".$GLOBALS["db"]->real_escape_string($region)."',
-																		  added   = '".$GLOBALS["db"]->real_escape_string(date("Y-m-d H:i:s"))."'");
-			$count_added++;
-		}
-	}
-	echo "Es wurden ".$count." URF-MatchIDs gefunden. Davon waren <b>".$count_added."</b> unbekannt und wurden gespeichert.";
-}
+$parser = new URF_matchID_parser(strtotime($date), $region);
+$result = $parser->parse();
+echo '<div class="message '.$result["status"].'">'.$result["message"].'</div>';
 
 
 $next 		 = $_SERVER["PHP_SELF"];
