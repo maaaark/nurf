@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once 'curl.func.php';
 require_once '../system/config_db.php';
@@ -19,7 +21,7 @@ $json    = json_decode($content["result"], true);
 
 if(isset($json["status"]) && isset($json["status"]["message"])){
 	echo "<div style='padding:10px;border:1px solid black;margin:10px;'>";
-	if($json["status"]["message"].trim() == "beginDate is invalid"){
+	if(trim($json["status"]["message"]) == "beginDate is invalid"){
 		echo "Riot stellt in dieser Minute gerade keine MatchIDs zur Verf&uuml;gung.";
 	} else {
 		echo $json["status"]["message"]."</div>";
