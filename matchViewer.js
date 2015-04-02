@@ -45,20 +45,8 @@ function showMinute(data, minute){
 		    .attr('width', width)
 		    .attr('height', height);
 
-		// Champion Icons setzen
-		svg.append('svg:g').selectAll("image")
-		    .data(cords)
-		    .enter()
-		    .append("svg:image")
-		        .attr('x', function(d) { return xScale(d[0]) - 10 })
-		        .attr('y', function(d) { return yScale(d[1]) - 10 })
-		        .attr('data-champ', function(d) { return d[2] })
-		        .attr('width', 20)
-		        .attr('height', 20)
-		        .attr('class', 'champion_dot')
-		        .attr('xlink:href', function(d) { return 'http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/'+d[3]+'.png' });
-
         // Buildings setzen
+        tower_layer = svg.append('svg:g').attr("class", "tower_layer");
         for(building_type in buildings_arr){
         	current_building = buildings_arr[building_type];
         	check_value		 = "platzhalter_"+building_type;
@@ -90,7 +78,7 @@ function showMinute(data, minute){
 
         		if(x != 0 && y != 0){
         			if(current_building){	// Überprüfen ob das Gebäude noch nicht zerstört wurde
-						svg.select("g").append("svg:image")
+						tower_layer.append("svg:image")
 					        .attr('x', x)
 					        .attr('y', y)
 					        .attr('width', 20)
@@ -103,6 +91,19 @@ function showMinute(data, minute){
 		        }
 	        }
         }
+
+		// Champion Icons setzen
+		svg.append('svg:g').attr("class", "champs_layer").selectAll("circle")
+		    .data(cords)
+		    .enter()
+		    .append("svg:circle")
+		        .attr('x', function(d) { return xScale(d[0]) - 10 })
+		        .attr('y', function(d) { return yScale(d[1]) - 10 })
+		        .attr('data-champ', function(d) { return d[2] })
+		        .attr('width', 20)
+		        .attr('height', 20)
+		        .attr('class', 'champion_dot')
+		        .attr('xlink:href', function(d) { return 'http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/'+d[3]+'.png' });
 
         // Player Informationen schreiben
         prerendered_player    = document.getElementById("prerenderedPlayerElement").innerHTML;
