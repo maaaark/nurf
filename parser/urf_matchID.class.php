@@ -33,7 +33,8 @@ class URF_matchID_parser {
 					if(!isset($check["id"]) || $check["id"] < 1){
 						$insert = $GLOBALS["db"]->query("INSERT INTO urf_matchIDs SET matchID = '".$GLOBALS["db"]->real_escape_string($matchID)."',
 																					  region  = '".$GLOBALS["db"]->real_escape_string($this->region)."',
-																					  added   = '".$GLOBALS["db"]->real_escape_string(date("Y-m-d H:i:s"))."'");
+																					  added   = '".$GLOBALS["db"]->real_escape_string(date("Y-m-d H:i:s"))."',
+																					  date    = '".$GLOBALS["db"]->real_escape_string(date("Y-m-d H:i:s", $this->timestamp))."'");
 						$count_added++;
 					}
 				}
