@@ -103,5 +103,28 @@ function showMinute(data, minute){
 		        }
 	        }
         }
+
+        // Player Informationen schreiben
+        prerendered_player    = document.getElementById("prerenderedPlayerElement").innerHTML;
+        player_red_team_HTML  = "";
+        player_blue_team_HTML = "";
+        for(i in  player_arr){
+        	player = player_arr[i];
+        	console.log(player);
+
+        	temp_template  = prerendered_player;
+        	for(column in player){
+        		temp_template = temp_template.replace("{"+column.toUpperCase()+"}", player[column]);
+        	}
+        	temp_template = '<div class="player_info_element">'+temp_template+'</div>';
+
+        	if(player["teamId"] == 100){
+        		player_blue_team_HTML += temp_template;
+        	} else {
+        		player_red_team_HTML  += temp_template;
+        	}
+        }
+        document.getElementById("blueTeamHolder").innerHTML = player_blue_team_HTML;
+        document.getElementById("redTeamHolder").innerHTML  = player_red_team_HTML;
 	}
 }

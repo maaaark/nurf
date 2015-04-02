@@ -1,0 +1,53 @@
+.match_holder {
+	padding-top: 150px;
+	padding-bottom: 100px;
+}
+
+.matchMapBox {
+	width: 520px;
+	margin: auto;
+}
+
+.matchTeamBox {
+	position: absolute;
+	width: 400px;
+	left: 50%;
+	margin-top: 100px;
+}
+
+.matchTeamBox.blueTeam {
+	margin-left: -740px;
+}
+
+.matchTeamBox.redTeam {
+	margin-left: 340px;
+}
+
+.matchTeamBox .teamName {
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.matchTeamBox.blueTeam .teamName {
+	color: blue;
+}
+
+.matchTeamBox.redTeam .teamName {
+	color: red;
+}
+
+.matchTeamBox .playerHolder .player_info_element {
+	background: #f1f1f1;
+	border-radius: 10px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+.matchTeamBox .playerHolder .player_info_element .champion_icon .champ_icon {
+	height: 55px;
+}
+
+.matchTeamBox .playerHolder .player_info_element .spells .spell_icon {
+	height: 24px;
+}

@@ -43,11 +43,16 @@ foreach($json["participants"] as $player){
 	$temp  = array();
 	$temp["champion_name"] = str_replace("'", "&lsquo;", $champ["name"]);
 	$temp["champion_key"]  = $champ["key"];
+
+	$temp["spell1Id"]      = $player["spell1Id"];
+	$temp["spell2Id"]      = $player["spell2Id"];
+	$temp["teamId"]        = $player["teamId"];
 	$participants_data[$player["participantId"]] = $temp;
 }
 
 
 // Minutenweise durchlaufen
+//echo "<pre>", print_r($json), "</pre>";
 $array 				  = array();
 $last_buildings_setup = null;
 foreach($json["timeline"]["frames"] as $timeline_element){
@@ -60,6 +65,10 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 	foreach($timeline_element["participantFrames"] as $player){
 		$player_arr = array();
 		$player_arr["playerId"] 	 	     = $player["participantId"];
+		$player_arr["summoner_name"] 	 	 = "Summoner Name";
+		$player_arr["teamId"] 	 	 		 =  $participants_data[$player["participantId"]]["teamId"];
+		$player_arr["spell1Id"]	 	 		 =  $participants_data[$player["participantId"]]["spell1Id"];
+		$player_arr["spell2Id"] 	 	     =  $participants_data[$player["participantId"]]["spell2Id"];
 		if(isset($player["position"])){
 			$player_arr["pos_x"]    	 	 = $player["position"]["x"];
 			$player_arr["pos_y"]    	 	 = $player["position"]["y"];
@@ -116,7 +125,6 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 						if($lane == "BOT_LANE" && $tower == "OUTER_TURRET"){ $buildings_temp["tower_bot_".$team."_1"] = false; }
 						if($lane == "BOT_LANE" && $tower == "INNER_TURRET"){ $buildings_temp["tower_bot_".$team."_2"] = false; }
 						if($lane == "BOT_LANE" && $tower == "BASE_TURRET"){  $buildings_temp["tower_bot_".$team."_3"] = false; }
-						echo "Tower Kill - ";
 					}
 				}
 			}
@@ -131,31 +139,14 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 	$last_buildings_setup = $buildings_temp;
 }
 
-echo "<script>var matchData = JSON.parse('".json_encode($array)."');</script>";
+//echo "<script>var matchData = JSON.parse('".json_encode($array)."');</script>";
+
+
+// Template anzeigen
+$template = file_get_contents("templates/index.tpl");
+$template = str_replace("{MATCH_DATA_JSON}", json_encode($array), $template);
+
+$design   = file_get_contents("templates/design.tpl");
+$design   = str_replace("{CONTENT}", $template, $design);
+echo $design;
 ?>
-
-<div id="map"></div>
-<script src="assets/jquery.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="matchViewer.js"></script>
-
-<div>
-	Aktuelle Minute: <span id="current_minute" style="font-weight: bold;">0</span>.
-	<a href="javascript:void(0);" onclick="changeMinute('-');">Zur&uuml;ck</a>
-	<a href="javascript:void(0);" onclick="changeMinute('+');">Weiter</a>
-</div>
-<script>
-	var current_min = 0;
-	showMinute(matchData, current_min);
-
-	function changeMinute(val){
-		if(val == "+"){
-			val = current_min + 1;
-		} else {
-			val = current_min - 1;
-		}
-		current_min = val;
-		showMinute(matchData, val);
-		document.getElementById("current_minute").innerHTML = val;
-	}
-</script>
