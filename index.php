@@ -3,7 +3,7 @@ require_once 'system/config.php';
 require_once 'system/init.php';
 
 
-$content = file_get_contents("https://na.api.pvp.net/api/lol/na/v2.2/match/1778704162?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
+$content = file_get_contents("https://euw.api.pvp.net/api/lol/euw/v2.2/match/2042419835?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
 $json    = json_decode($content, true);
 //echo "<pre>", print_r($json), "</pre>";
 
@@ -47,6 +47,9 @@ foreach($json["participants"] as $player){
 	$temp["spell1Id"]      = $player["spell1Id"];
 	$temp["spell2Id"]      = $player["spell2Id"];
 	$temp["teamId"]        = $player["teamId"];
+	$temp["kills"]		   = 0;
+	$temp["death"]		   = 0;
+	$temp["assists"]	   = 0;
 	$participants_data[$player["participantId"]] = $temp;
 }
 
@@ -69,6 +72,11 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 		$player_arr["teamId"] 	 	 		 =  $participants_data[$player["participantId"]]["teamId"];
 		$player_arr["spell1Id"]	 	 		 =  $participants_data[$player["participantId"]]["spell1Id"];
 		$player_arr["spell2Id"] 	 	     =  $participants_data[$player["participantId"]]["spell2Id"];
+
+		$player_arr["kills"] 	 	         =  $participants_data[$player["participantId"]]["kills"];
+		$player_arr["death"] 	 	         =  $participants_data[$player["participantId"]]["death"];
+		$player_arr["assists"] 	 	         =  $participants_data[$player["participantId"]]["assists"];
+
 		if(isset($player["position"])){
 			$player_arr["pos_x"]    	 	 = $player["position"]["x"];
 			$player_arr["pos_y"]    	 	 = $player["position"]["y"];
@@ -127,6 +135,19 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 						if($lane == "BOT_LANE" && $tower == "BASE_TURRET"){  $buildings_temp["tower_bot_".$team."_3"] = false; }
 					}
 				}
+
+				else if($event["eventType"] == "CHAMPION_KILL"){	// Wenn ein Champion getötet wird
+					if(isset($participants_data[$event["killerId"]]["kills"]) && isset($participants_data[$event["victimId"]]["death"])){
+						$participants_data[$event["killerId"]]["kills"] = $participants_data[$event["killerId"]]["kills"] + 1;
+						$participants_data[$event["victimId"]]["death"] = $participants_data[$event["victimId"]]["death"] + 1;
+
+						if(isset($event["assistingParticipantIds"]) && is_array($event["assistingParticipantIds"])){
+							foreach($event["assistingParticipantIds"] as $player_assist){
+								$participants_data[$player_assist]["assists"] = $participants_data[$player_assist]["assists"] +1;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -138,8 +159,6 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 	$array[$minute_id] 	  = $temp;
 	$last_buildings_setup = $buildings_temp;
 }
-
-//echo "<script>var matchData = JSON.parse('".json_encode($array)."');</script>";
 
 
 // Template anzeigen

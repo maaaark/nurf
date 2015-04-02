@@ -9,7 +9,7 @@
 			</td>
 			<td>
 				<div class="summoner_name">{SUMMONER_NAME}</div>
-				<div class="kills">kills</div>
+				<div class="kills">{KILLS} / {DEATH} / {ASSISTS}</div>
 			</td>
 			<td class="gold_lasthits">
 				<div class="gold">{TOTAL_GOLD}</div>
