@@ -2,10 +2,13 @@
 
 $hours   = date("H");
 $minutes = date("i");
+$date    = date("d.m.Y");
 
-echo $minutes ." => ";
-$diff    = $minutes / 5;
+$diff    = $minutes % 5;
 if($diff > 0){
-	echo $diff;
+	$minutes = $minutes - 5 - $diff;
 }
+
+$date = $hours.":".$minutes." ".$date;
+echo $date;
 ?>

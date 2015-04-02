@@ -86,17 +86,17 @@ function showMinute(data, minute){
 					        .attr('class', 'tower_dot')
 					        .attr('xlink:href', 'http://matchhistory.euw.leagueoflegends.com/assets/1.0.5/images/normal/event_icons/turret_'+team_icon_id+'.png');
 			        } else {
-			        	console.log("Gebäude wurde zerstört");
+			        	//console.log("Gebäude wurde zerstört");
 			        }
 		        }
 	        }
         }
 
 		// Champion Icons setzen
-		svg.append('svg:g').attr("class", "champs_layer").selectAll("circle")
+		svg.append('svg:g').attr("class", "champs_layer").selectAll("image")
 		    .data(cords)
 		    .enter()
-		    .append("svg:circle")
+		    .append("svg:image")
 		        .attr('x', function(d) { return xScale(d[0]) - 10 })
 		        .attr('y', function(d) { return yScale(d[1]) - 10 })
 		        .attr('data-champ', function(d) { return d[2] })
@@ -111,7 +111,6 @@ function showMinute(data, minute){
         player_blue_team_HTML = "";
         for(i in  player_arr){
         	player = player_arr[i];
-        	console.log(player);
 
         	temp_template  = prerendered_player;
         	for(column in player){
