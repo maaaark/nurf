@@ -31,7 +31,7 @@
 	</div>
 
 	<div class="matchTeamBox redTeam">
-		<div class="teamName">Blue Team</div>
+		<div class="teamName">Red Team</div>
 		<div class="teamPlayerHolder">
 			<div id="redTeamHolder" class="playerHolder"></div>
 		</div>
