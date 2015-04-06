@@ -9,23 +9,29 @@
 </head>
 <body>
    <div class="login_box" id="login_box">
-      <div class="login_title">Einloggen</div>
-      <form action="index.php" method="post">
+      <div class="login_title">Neuen Admin erstellen</div>
+      
+      <form action="?setAdmin" method="post">
+      <div class="login_content">
          {INSTANT_MESSAGES}
-         <div class="login_content">
-            <div class="input-full-form">
-               <div class="input-label">Benutzername:</div>
-               <input type="text" name="username">
-            </div>
-            
-            <div class="input-full-form">
-               <div class="input-label">Passwort:</div>
-               <input type="password" name="password" class="input-full">
-            </div>
+         <div class="input-full-form">
+            <div class="input-label">Benutzername:</div>
+            <input type="text" name="username">
          </div>
-         <div class="form-footer">
-            <input type="submit" value="Einloggen">
+         
+         <div class="input-full-form">
+            <div class="input-label">Passwort:</div>
+            <input type="password" name="password" class="input-full">
          </div>
+         
+         <div class="input-full-form">
+            <div class="input-label">Passwort wiederholen:</div>
+            <input type="password" name="password2" class="input-full">
+         </div>
+      </div>
+      <div class="form-footer">
+         <a href="{DOMAIN}">Abbrechen</a> <button>Erstellen</button>
+      </div>
       </form>
    </div>
    <script>

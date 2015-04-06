@@ -1,1 +1,1 @@
-<h1>Starten</h1>
+<h1 class="site_title">Dashboard</h1>

@@ -12,6 +12,8 @@ class Template {
     private $status_diplay;
     private $status_diplay_file;
     
+    private $parser_template;
+    
     // $assigns zum Array machen
     public function __construct() {
         $this->assign_replace     = array();
@@ -21,10 +23,10 @@ class Template {
     }
     
     // Template-Datei laden und in $template speichern
-    public function load($file, $global_template = false, $bbcode = false){
-        $this->template = file_get_contents(ROOT."/templates/".$file.".tpl");
-        
+    public function load($file, $global_template = false, $bbcode = false){        
         if(defined("CURRENT_MODULE") && CURRENT_MODULE != "" && $global_template == false){
+            $this->parser_template = true;
+            $this->addParserConfig();
             $this->template = file_get_contents(ROOT."/parser/".CURRENT_MODULE."/templates/".$file.".tpl");
         } else {
             $this->template = file_get_contents(ROOT."/templates/".$file.".tpl");
@@ -106,6 +108,17 @@ class Template {
         for($i=0; $i<=$count; $i++){
             @$this->template = str_replace("{".$this->assign_replace[$i]."}", $this->assign_replacement[$i], $this->template);
         }
+        
+        if(checkInstantMessages()){
+            if(strpos($this->template, "{INSTANT_MESSAGES}") > 0){
+               $this->template = str_replace("{INSTANT_MESSAGES}", getInstantMessages(), $this->template);
+            }
+        }
+        $this->template = str_replace("{INSTANT_MESSAGES}", "", $this->template);
+        
+        if(strpos($this->template, "{NAVIGATION_PARSER}") > 0){
+            $this->template = str_replace("{NAVIGATION_PARSER}", $this->loadParserNavi(), $this->template);
+        }
     }
     
     public function conditions(){
@@ -117,6 +130,73 @@ class Template {
     public function loadBasics(){
         $this->assign("ROOT", ROOT);
         $this->assign("DOMAIN", DOMAIN);
+        
+        if(defined("CURRENT_MODULE") && trim(CURRENT_MODULE) != ""){
+           $this->assign("CURRENT_MODULE", trim(CURRENT_MODULE));
+        }
+    }
+    
+    private function addParserConfig(){
+        if($this->parser_template && defined("CURRENT_MODULE") && trim(CURRENT_MODULE) != ""){
+           if(file_exists(ROOT."/parser/".CURRENT_MODULE."/config.json")){
+               $config = json_decode(file_get_contents(ROOT."/parser/".CURRENT_MODULE."/config.json"), true);
+               foreach($config as $column => $value){
+                  if(is_array($value)){
+                     // Hier muss irgendwann das array noch hinzugefügt werden
+                  } else {
+                     $this->assign("PARSER_".strtoupper($column), $value);
+                  }
+               }
+           }
+        }
+    }
+    
+    private function loadParserNavi(){
+        $dir = opendir("parser");
+        $return = "";
+        while($folder = readdir($dir)){
+           if(trim($folder) != "." && trim($folder) != ".." && trim($folder) != ""){
+              if(file_exists("parser/".$folder."/init.php") && file_exists("parser/".$folder."/config.json")){
+                 $out    = "";
+                 $config = json_decode(file_get_contents("parser/".$folder."/config.json"), true);
+                 
+                 $icon   = "<img src='".DOMAIN."/assets/img/parser_icon.png' class='icon'/>";
+                 
+                 $class_add = "";
+                 if(defined("CURRENT_MODULE") && trim(CURRENT_MODULE) == trim($folder)){
+                     $class_add = "active";
+                 }
+                 
+                 $status = false;
+                 if(isset($config["roles"])){
+                    if(checkCanSee($_SESSION["roles"], $config["roles"])){
+                       $status = true;
+                       $out   .= '<div class="navi_el '.$class_add.'">';
+                       $out   .= '<div class="title">'.$icon.trim($config["name"]).'</div>';
+                    }
+                 } else {
+                    $status = true;
+                    $out   .= '<div class="navi_el '.$class_add.'">';
+                    $out   .= '<div class="title">'.$icon.trim($config["name"]).'</div>';
+                 }
+                 
+                 if($status){
+                    if(isset($config["subnavi"]) && is_array($config["subnavi"])){
+                       $out .= '<div class="subnavi">';
+                       foreach($config["subnavi"] as $element){
+                          $out .= '<div class="subnavi_el"><a href="'.trim($element["link"]).'">'.trim($element["label"]).'</a></div>';
+                       }
+                       $out .= "</div>";
+                       $out  = str_replace('class="navi_el '.$class_add.'"', 'class="navi_el '.$class_add.' subnavi"', $out);
+                       $out  = str_replace('<div class="title">', '<div class="title"><div class="subnavi_toggle"></div>', $out);
+                    }
+                    $out .= "</div>";
+                 }
+                 $return .= $out;
+              }
+           }
+        }
+        return $return;
     }
 }
 ?>

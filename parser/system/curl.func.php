@@ -13,6 +13,7 @@ function curl_file($url, $use_useragent = false){
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,5); 
 	curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	
 	if($use_useragent){
    	curl_setopt($ch, CURLOPT_USERAGENT, get_useragent());
@@ -20,8 +21,9 @@ function curl_file($url, $use_useragent = false){
    
    $result = curl_exec($ch);
    $info   = curl_getinfo($ch);
+   $error  = curl_error($ch);
    
-   return array("result" => $result, "info" => $info);
+   return array("result" => $result, "info" => $info, "error" => $error);
 }
 
 ?>
