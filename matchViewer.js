@@ -3,6 +3,7 @@ function showMinute(data, minute){
 		// Daten der aktuellen Minute laden
 		player_arr    = data[minute]["player"];
 		buildings_arr = data[minute]["buildings"];
+		events_arr    = data[minute]["events"];
 
 		// Variablen definieren
 		var cords = [],
@@ -17,7 +18,7 @@ function showMinute(data, minute){
 
 		// Spieler durchlaufen und Koordinaten + Champs speichern
 		for(i in  player_arr){
-			cords[cords.length] = [player_arr[i]["pos_x"], player_arr[i]["pos_y"], player_arr[i]["champion_name"], player_arr[i]["champion_key"]];
+			cords[cords.length] = [player_arr[i]["pos_x"], player_arr[i]["pos_y"], player_arr[i]["champion_name"], player_arr[i]["champion_key"], player_arr[i]["playerId"]];
 		}
 
 		color = d3.scale.linear()
@@ -103,6 +104,7 @@ function showMinute(data, minute){
 		        .attr('width', 20)
 		        .attr('height', 20)
 		        .attr('class', 'champion_dot')
+		        .attr('id', function(d) { return 'player_'+d[4] })
 		        .attr('xlink:href', function(d) { return 'http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/'+d[3]+'.png' });
 
         // Player Informationen schreiben
@@ -126,5 +128,13 @@ function showMinute(data, minute){
         }
         document.getElementById("blueTeamHolder").innerHTML = player_blue_team_HTML;
         document.getElementById("redTeamHolder").innerHTML  = player_red_team_HTML;
+
+        // Events durchlaufen
+        for(event_key in events_arr){
+        	element = events_arr[event_key];
+        	if(element["type"] == "CHAMPION_KILL"){
+        		handleKill(svg, element);
+        	}
+        }
 	}
 }

@@ -6,7 +6,7 @@ if(isset($_GET["region"])){
 }
 
 $time = time();
-if(isset($_GET["timestamp"])){
+if(isset($_GET["timestamp"]) && trim($_GET["timestamp"]) != ""){
 	$time = strtotime($_GET["timestamp"]);
 }
 
@@ -21,6 +21,8 @@ $date = date("H:i d.m.Y", $time);
 
 $parser = new URF_matchID_parser(strtotime($date), $region);
 $result = $parser->parse();
-echo '<div class="message '.$result["status"].'">'.$result["message"].'</div>';
-
+$array  = array();
+$array["result"] = '<div class="message '.$result["status"].'"><span style="float:right;">'.$date.'</span>'.$result["message"].'</div>';
+$array["next"]   = date("H:i:s d.m.Y", strtotime($date) - (5 * 60));
+echo json_encode($array);
 ?>

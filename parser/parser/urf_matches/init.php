@@ -8,7 +8,18 @@ if(isset($_GET["normal_parser"])){
    } else {
       $template = new template;
       $template->load("normal_parser");
-      $template->assign("SITE_TITLE", "URF-Matches Crawler");
+      $template->assign("SITE_TITLE", "URF-Matches Parser");
+      $tmpl = $template->display(true);
+      $tmpl = $template->operators();
+      echo $tmpl;
+   }
+} elseif(isset($_GET["reverse_parser"])){
+   if(isset($_GET["run"])){
+      require_once 'parser/urf_matches/parser_reverse.init.php';
+   } else {
+      $template = new template;
+      $template->load("reverse_parser");
+      $template->assign("SITE_TITLE", "URF-Matches Parser");
       $tmpl = $template->display(true);
       $tmpl = $template->operators();
       echo $tmpl;
@@ -19,7 +30,7 @@ if(isset($_GET["normal_parser"])){
    
    $template = new template;
    $template->load("index");
-   $template->assign("SITE_TITLE", "URF-Matches Crawler");
+   $template->assign("SITE_TITLE", "URF-Matches Parser");
    $template->assign("NUMS_ALL", number_format($nums, 0, ",", "."));
    $template->assign("LAST_MATCHID", $last["matchID"]);
    $template->assign("LAST_MATCHID_DATE", $last["date"]);

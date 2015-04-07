@@ -59,7 +59,9 @@ foreach($json["participants"] as $player){
 $array 				  = array();
 $last_buildings_setup = null;
 foreach($json["timeline"]["frames"] as $timeline_element){
-	//echo "<pre>", print_r($timeline_element), "</pre>";
+	if(isset($_GET["pre"]) && $_GET["pre"] == "true"){
+		echo "<pre style='background:white;'>", print_r($timeline_element), "</pre>";
+	}
 	$temp = array();
 	$minute_id = round($timeline_element["timestamp"] / 1000 / 60);
 
@@ -108,6 +110,7 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 	}
 
 	// Events durchlaufen
+	$temp["events"] = array();
 	if(isset($timeline_element["events"]) && is_array($timeline_element["events"])){
 		foreach($timeline_element["events"] as $event){
 			if(isset($event["eventType"])){
@@ -146,6 +149,16 @@ foreach($json["timeline"]["frames"] as $timeline_element){
 								$participants_data[$player_assist]["assists"] = $participants_data[$player_assist]["assists"] +1;
 							}
 						}
+
+						// An Event Warteschlange anfügen
+						$temp_arr = array();
+						$temp_arr["type"] 	   = "CHAMPION_KILL";
+						$temp_arr["timestamp"] = $event["timestamp"];
+						$temp_arr["killerId"]  = $event["killerId"];
+						$temp_arr["victimId"]  = $event["victimId"];
+						$temp_arr["pos_x"]     = $event["position"]["x"];
+						$temp_arr["pos_y"]     = $event["position"]["y"];
+						$temp["events"][] = $temp_arr;
 					}
 				}
 			}

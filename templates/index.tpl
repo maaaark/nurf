@@ -48,6 +48,7 @@
 	</div>
 </div>
 
+<script type="text/javascript" src="events.js"></script>
 <script type="text/javascript" src="matchViewer.js"></script>
 <script>
 	var matchData   = JSON.parse('{MATCH_DATA_JSON}');
