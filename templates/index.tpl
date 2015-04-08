@@ -7,16 +7,27 @@
 				<div><img src="http://flashignite.com/img/spells/{SPELL1ID}.png" class="spell_icon"></div>
 				<div><img src="http://flashignite.com/img/spells/{SPELL2ID}.png" class="spell_icon"></div>
 			</td>
-			<td>
+			<td class="summoner_info"  valign="top">
 				<div class="summoner_name">{SUMMONER_NAME}</div>
 				<div class="kills">{KILLS} / {DEATH} / {ASSISTS}</div>
 			</td>
 			<td class="gold_lasthits">
-				<div class="gold">{TOTAL_GOLD}</div>
-				<div class="lasthits">{LASTHITS}</div>
+				<div class="gold"><img src="assets/img/gold.png" > {TOTAL_GOLD}</div>
+				<div class="lasthits"><img src="assets/img/minion.png" > {LASTHITS}</div>
 			</td>
 			<td class="items">
-				Items
+				<table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td height="22"><img src="http://ddragon.leagueoflegends.com/cdn/5.6.2/img/item/3089.png" width="22" /></td>
+                        <td height="22"><img src="http://ddragon.leagueoflegends.com/cdn/5.6.2/img/item/3089.png" width="22" /></td>
+                        <td height="22"><img src="http://ddragon.leagueoflegends.com/cdn/5.6.2/img/item/3089.png" width="22" /></td>
+                    </tr>
+                    <tr>
+                        <td height="22"><img src="http://ddragon.leagueoflegends.com/cdn/5.6.2/img/item/3089.png" width="22" /></td>
+                        <td height="22"><img src="http://ddragon.leagueoflegends.com/cdn/5.6.2/img/item/3089.png" width="22" /></td>
+                        <td height="22"><img src="http://ddragon.leagueoflegends.com/cdn/5.6.2/img/item/3089.png" width="22" /></td>
+                    </tr>
+                </table>
 			</td>
 		</tr></table>
 	</div>
@@ -38,13 +49,25 @@
 	</div>
 
 	<div class="matchMapBox">
+        <div id="team_scores">
+            <div class="kills_blue">24</div>
+            <div class="kills_red">16</div>
+            <div class="gold_blue"><img src="assets/img/gold.png" > 20.2k</div>
+            <div class="gold_red"><img src="assets/img/gold.png" > 19.3k</div>
+        </div>
 		<div id="map" class="map"></div>
-	</div>
-
-	<div>
-		Aktuelle Minute: <span id="current_minute" style="font-weight: bold;">0</span>.
-		<a href="javascript:void(0);" onclick="changeMinute('-');">Zur&uuml;ck</a>
-		<a href="javascript:void(0);" onclick="changeMinute('+');">Weiter</a>
+        <div id="controls">
+            <table>
+                <tr>
+                    <td width="120"><input type="range"  min="0" max="100" width="100" /></td>
+                    <td width="75"><span id="current_minute" style="font-weight: bold;">0</span> Minute</td>
+                    <td width="50">PLAY</td>
+                    <td width="75"><a href="javascript:void(0);" onclick="changeMinute('-');">Zur&uuml;ck</a></td>
+                    <td width="75"><a href="javascript:void(0);" onclick="changeMinute('+');">Weiter</a></td>
+                </tr>
+            </table>
+            
+        </div>
 	</div>
 </div>
 

@@ -1,5 +1,5 @@
 .match_holder {
-	padding-top: 150px;
+	padding-top: 100px;
 	padding-bottom: 100px;
 }
 
@@ -13,6 +13,9 @@
 	width: 400px;
 	left: 50%;
 	margin-top: 100px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
 
 .matchTeamBox.blueTeam {
@@ -27,6 +30,7 @@
 	font-size: 16px;
 	font-weight: bold;
 	padding: 5px;
+    background: #1f1f1f;
 }
 
 .matchTeamBox.blueTeam .teamName {
@@ -46,8 +50,96 @@
 
 .matchTeamBox .playerHolder .player_info_element .champion_icon .champ_icon {
 	height: 55px;
+    width: 55px;
 }
 
 .matchTeamBox .playerHolder .player_info_element .spells .spell_icon {
 	height: 24px;
+}
+.gold_blue {
+    float: left;
+    width: 256px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px #000000;
+}
+.gold_red {
+    text-align:right;
+    float: left;
+    width: 256px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px #000000;
+}
+.kills_blue {
+    text-align:right;
+    text-shadow: 2px 2px #000000;
+    float: left;
+    width: 236px;
+    padding-right: 20px;
+    color: darkblue;
+    font-size: 40px;
+    font-weight: bold;
+}
+.kills_red {
+    text-align: left;
+    float: left;
+    text-shadow: 2px 2px #000000;
+    padding-left: 20px;
+    width: 236px;
+    color: firebrick;
+    font-size: 40px;
+    font-weight: bold;
+}
+.playerHolder {
+    background: #f1f1f1;
+}
+#controls {
+    margin-top: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 502px;
+    height: 28px;
+    background: #1f1f1f;
+    color: #fff;
+    padding: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+#controls a {
+    color: #fff;
+    text-decoration: none;
+}
+#team_scores {
+    height: 75px;
+}
+#map {
+    border: 0;
+    height: 512px;
+    width: 512px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.gold_lasthits {
+    font-size: 12px;
+    width: 85px;
+}
+.summoner_info {
+    font-size: 12px;
+    width: 130px;
+}
+.summoner_name {
+    font-weight: bold;
+    font-size: 14px;
+}
+.items table tr td {
+    padding: 0;
+}
+.clear {
+    clear: both;
 }
