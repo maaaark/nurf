@@ -35,27 +35,34 @@
 
 <div class="match_holder">
 	<div class="matchTeamBox blueTeam">
-		<div class="teamName">Blue Team</div>
-		<div class="teamPlayerHolder">
-			<div id="blueTeamHolder" class="playerHolder"></div>
+		<div class="team_wrapper">
+			<div class="teamName">Blue Team</div>
+			<div class="teamPlayerHolder">
+				<div id="blueTeamHolder" class="playerHolder"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="matchTeamBox redTeam">
-		<div class="teamName">Red Team</div>
-		<div class="teamPlayerHolder">
-			<div id="redTeamHolder" class="playerHolder"></div>
+		<div class="team_wrapper">
+			<div class="teamName">Red Team</div>
+			<div class="teamPlayerHolder">
+				<div id="redTeamHolder" class="playerHolder"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="matchMapBox">
         <div id="team_scores">
             <div class="kills_blue">24</div>
+			<div class="vs"><img src="assets/img/vs.png" alt="score" /></div>
             <div class="kills_red">16</div>
             <div class="gold_blue"><img src="assets/img/gold.png" > 20.2k</div>
             <div class="gold_red"><img src="assets/img/gold.png" > 19.3k</div>
         </div>
-		<div id="map" class="map"></div>
+		<div class="map_frame">
+			<div id="map" class="map"></div>
+		</div>
         <div id="controls">
             <table>
                 <tr>

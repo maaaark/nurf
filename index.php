@@ -3,8 +3,8 @@ require_once 'system/config.php';
 require_once 'system/init.php';
 
 
-//$content = file_get_contents("https://euw.api.pvp.net/api/lol/euw/v2.2/match/2042419835?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
-$content = file_get_contents("http://localhost/match.json");
+$content = file_get_contents("https://euw.api.pvp.net/api/lol/euw/v2.2/match/2042419835?includeTimeline=true&api_key=cc157cc5-58b2-417a-83ac-7d4579bd2d1d");
+//$content = file_get_contents("http://localhost/match.json");
 $json    = json_decode($content, true);
 //echo "<pre>", print_r($json), "</pre>";
 

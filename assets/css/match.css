@@ -10,12 +10,12 @@
 
 .matchTeamBox {
 	position: absolute;
-	width: 400px;
+	width: 393px;
+	height: 400px;
+	background: url('../img/player_box.png');
+	background-repeat: no-repeat;
 	left: 50%;
 	margin-top: 100px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
 
 .matchTeamBox.blueTeam {
@@ -30,22 +30,24 @@
 	font-size: 16px;
 	font-weight: bold;
 	padding: 5px;
-    background: #1f1f1f;
+	padding-top: 0px;
+	margin-bottom: 5px;
 }
 
 .matchTeamBox.blueTeam .teamName {
-	color: blue;
+	color: #007eff;
 }
 
 .matchTeamBox.redTeam .teamName {
-	color: red;
+	color: #c41414;
 }
-
+.team_wrapper {
+	margin: 0 auto;
+	width: 340px;
+	margin-top: 20px;
+}
 .matchTeamBox .playerHolder .player_info_element {
-	background: #f1f1f1;
-	border-radius: 10px;
-	margin-top: 1px;
-	margin-bottom: 1px;
+
 }
 
 .matchTeamBox .playerHolder .player_info_element .champion_icon .champ_icon {
@@ -77,24 +79,29 @@
     text-align:right;
     text-shadow: 2px 2px #000000;
     float: left;
-    width: 236px;
+    width: 221px;
     padding-right: 20px;
-    color: darkblue;
+    color: #007eff;
     font-size: 40px;
     font-weight: bold;
+}
+.map_frame {
+	background: url('../img/map_frame.png');
+	width: 545px;
+	height: 556px;
 }
 .kills_red {
     text-align: left;
     float: left;
     text-shadow: 2px 2px #000000;
     padding-left: 20px;
-    width: 236px;
-    color: firebrick;
+    width: 221px;
+    color: #c41414;
     font-size: 40px;
     font-weight: bold;
 }
 .playerHolder {
-    background: #f1f1f1;
+
 }
 #controls {
     margin-top: 10px;
@@ -115,15 +122,20 @@
     text-decoration: none;
 }
 #team_scores {
-    height: 75px;
+    height: 90px;
+}
+.vs {
+	width: 30px;
+	height: 29px;
+	float: left;
+	margin-top: 15px;
 }
 #map {
     border: 0;
     height: 512px;
     width: 512px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	margin: 0 auto;
+	padding-top: 25px;
 }
 .gold_lasthits {
     font-size: 12px;
